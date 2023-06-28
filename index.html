@@ -1,11 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Chương trình quản lý</title>
-</head>
-<body>
-    
-</body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link
+      crossorigin="anonymous"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      referrerpolicy="no-referrer"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <header class="text-center mt-3 fs-1 fw-bold">
+        Chương trình quản lý
+      </header>
+      <div class="mt-3 mb-3 d-flex justify-content-between">
+        <div>
+          <button
+            id="btnThem"
+            type="button"
+            class="btn btn-primary me-2"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          >
+            Thêm
+          </button>
+        </div>
+        <div class="filter">
+          <div type="button" class="me-2 d-inline fw-semibold fs-6">
+            Bộ lọc :
+          </div>
+          <button type="button" class="btn btn-primary me-2 btn-filter">
+            All
+          </button>
+          <button type="button" class="btn btn-primary me-2 btn-filter">
+            Student
+          </button>
+          <button type="button" class="btn btn-primary me-2 btn-filter">
+            Employee
+          </button>
+          <button type="button" class="btn btn-primary me-2 btn-filter">
+            Customer
+          </button>
+          <button id="filterName" type="button" class="btn btn-primary me-2">
+            Sắp xếp theo tên
+          </button>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="myModallLabel">Thêm</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="student-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#student-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="student-tab-pane"
+                    aria-selected="true"
+                  >
+                    Student
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="employee-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#employee-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="employee-tab-pane"
+                    aria-selected="false"
+                  >
+                    Employee
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="customer-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#customer-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="customer-tab-pane"
+                    aria-selected="false"
+                  >
+                    Customer
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="student-tab-pane"
+                  role="tabpanel"
+                >
+                  <form id="formStd" class="mt-3">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">ID</span>
+                        <input
+                          id="idStd"
+                          type="text"
+                          class="form-control"
+                          placeholder="ID"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorIdStd"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Name</span>
+                        <input
+                          id="nameStd"
+                          type="text"
+                          class="form-control"
+                          placeholder="Name"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorNameStd"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Address</span>
+                        <input
+                          id="addressStd"
+                          type="text"
+                          class="form-control"
+                          placeholder="Address"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorAddressStd"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Email</span>
+                        <input
+                          id="emailStd"
+                          type="text"
+                          class="form-control"
+                          placeholder="Email"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorEmailStd"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Toán</span>
+                        <input
+                          id="toanStd"
+                          type="text"
+                          class="form-control"
+                          placeholder="Toán"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorToanStd"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Lý</span>
+                        <input
+                          id="lyStd"
+                          type="text"
+                          class="form-control"
+                          placeholder="Lý"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorLyStd"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Hóa</span>
+                        <input
+                          id="hoaStd"
+                          type="text"
+                          class="form-control"
+                          placeholder="Hóa"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorHoaStd"></span>
+                    </div>
+                  </form>
+                  <div class="modal-footer mt-4">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Đóng
+                    </button>
+                    <button id="suaStd" type="button" class="btn btn-success">
+                      Sửa
+                    </button>
+                    <button id="themStd" type="button" class="btn btn-primary">
+                      Thêm
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="employee-tab-pane"
+                  role="tabpanel"
+                >
+                  <form id="formEmp" class="mt-3">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">ID</span>
+                        <input
+                          id="idEmploy"
+                          type="text"
+                          class="form-control"
+                          placeholder="ID"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorIdEmploy"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Name</span>
+                        <input
+                          id="nameEmploy"
+                          type="text"
+                          class="form-control"
+                          placeholder="Name"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorNameEmploy"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Address</span>
+                        <input
+                          id="addressEmploy"
+                          type="text"
+                          class="form-control"
+                          placeholder="Address"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorAddressEmploy"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Email</span>
+                        <input
+                          id="emailEmploy"
+                          type="text"
+                          class="form-control"
+                          placeholder="Email"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorEmailEmploy"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Ngày làm</span>
+                        <input
+                          id="ngayEmploy"
+                          type="text"
+                          class="form-control"
+                          placeholder="Ngày làm"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorNgayEmploy"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Lương</span>
+                        <input
+                          id="luongEmploy"
+                          type="text"
+                          class="form-control"
+                          placeholder="Lương"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorLuongEmploy"></span>
+                    </div>
+                  </form>
+                  <div class="modal-footer mt-4">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Đóng
+                    </button>
+                    <button
+                      id="suaEmploy"
+                      type="button"
+                      class="btn btn-success"
+                    >
+                      Sửa
+                    </button>
+                    <button
+                      id="themEmploy"
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      Thêm
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="customer-tab-pane"
+                  role="tabpanel"
+                >
+                  <form id="formCus" class="mt-3">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">ID</span>
+                        <input
+                          id="idCustomer"
+                          type="text"
+                          class="form-control"
+                          placeholder="ID"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorIdCustomer"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Name</span>
+                        <input
+                          id="nameCustomer"
+                          type="text"
+                          class="form-control"
+                          placeholder="Name"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorNameCustomer"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Address</span>
+                        <input
+                          id="addressCustomer"
+                          type="text"
+                          class="form-control"
+                          placeholder="Address"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorAddressCustomer"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Email</span>
+                        <input
+                          id="emailCustomer"
+                          type="text"
+                          class="form-control"
+                          placeholder="Email"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorEmailCustomer"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Công ty</span>
+                        <input
+                          id="ctyCustomer"
+                          type="text"
+                          class="form-control"
+                          placeholder="Tên công ty"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorCtyCustomer"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Hóa đơn</span>
+                        <input
+                          id="hdCustomer"
+                          type="text"
+                          class="form-control"
+                          placeholder="Giá trị hóa đơn"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errorHdCustomer"></span>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-text">Đánh giá</span>
+                        <input
+                          id="dgCustomer"
+                          type="text"
+                          class="form-control"
+                          placeholder="Đánh giá"
+                        />
+                      </div>
+                      <span class="errorNoti" id="errordgCustomer"></span>
+                    </div>
+                  </form>
+                  <div class="modal-footer mt-4">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Đóng
+                    </button>
+                    <button
+                      id="suaCustomer"
+                      type="button"
+                      class="btn btn-success"
+                    >
+                      Sửa
+                    </button>
+                    <button
+                      id="themCustomer"
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      Thêm
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col">Toán</th>
+            <th scope="col">Lý</th>
+            <th scope="col">Hóa</th>
+            <th scope="col">ĐTB</th>
+            <th scope="col">Số ngày làm việc</th>
+            <th scope="col">Lương theo ngày</th>
+            <th scope="col">Tổng lương</th>
+            <th scope="col">Tên công ty</th>
+            <th scope="col">Trị giá hóa đơn</th>
+            <th scope="col">Đánh giá</th>
+            <th scope="col" class="text-center"><em class="fa fa-cog"></em></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Button trigger modal -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./src/main.js"></script>
+  </body>
 </html>

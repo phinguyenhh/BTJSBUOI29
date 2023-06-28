@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    bottom: 0;
+    box-sizing: border-box;
+}
+
+.input-group-text {
+    width: 16%;
+    justify-content: center;
+}
+.input-group {
+    margin-top: 15px;
+}
+.errorNoti {
+    color: red;
+    margin-left: 80px;
+    display: none;
+    font-size: 14px;
+    transition: all 0.5s;
+}
+
+td,th {
+    text-align: center;
+}
